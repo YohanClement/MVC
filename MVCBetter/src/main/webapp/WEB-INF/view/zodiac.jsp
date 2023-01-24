@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 </head>
@@ -16,25 +17,30 @@
 }
 </style>
 <body>
-	<a href="astro?mylocale=en">English </a> |
-	<a href="astro?mylocale=fr">Français </a>
-	<h3> What is your theme ?</h3>
+	<h3>
+		<spring:message code="form.zodiac" />
+	</h3>
 	<form:form method="POST" action="astro" modelAttribute="astro">
 		<table>
 			<tr>
-				<td><form:label path="sun">Sun</form:label></td>
+				<td><form:label path="sun">
+						<spring:message code="form.zodiac.sun" />
+					</form:label></td>
 				<td><form:input path="sun" /></td>
 				<td><form:errors path="sun" cssClass="error" /></td>
 
 			</tr>
 			<tr>
-				<td><form:label path="moon">Moon</form:label></td>
+				<td><form:label path="moon">
+						<spring:message code="form.zodiac.moon" />
+					</form:label></td>
 				<td><form:input path="moon" /></td>
 				<td><form:errors path="moon" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="rising">
-                      Rising</form:label></td>
+						<spring:message code="form.zodiac.rising" />
+					</form:label></td>
 				<td><form:input path="rising" /></td>
 				<td><form:errors path="rising" cssClass="error" /></td>
 

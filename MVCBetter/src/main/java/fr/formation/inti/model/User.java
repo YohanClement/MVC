@@ -6,10 +6,10 @@ import javax.validation.constraints.Size;
 
 public class User {
 	
-	@Size(min=3, max=30, message="doit contenir entre 3 et 30 charactères")@NotNull
+	@Size(min=3, max=30, message="doit contenir entre 3 et 30 characteres")@NotNull
 	private String prenom;
 	
-	@Size(min=3, max=30, message="doit contenir entre 3 et 30 charactères")@NotNull
+	@Size(min=3, max=30, message="doit contenir entre 3 et 30 characteres")@NotNull
 	private String nom;
 	@Email(message = "Email valide svp")
 	private String email;

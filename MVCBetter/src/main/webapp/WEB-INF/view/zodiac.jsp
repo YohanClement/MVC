@@ -16,7 +16,9 @@
 }
 </style>
 <body>
-	<h3>Welcome, What is your theme ?</h3>
+	<a href="astro?mylocale=en">English </a> |
+	<a href="astro?mylocale=fr">Français </a>
+	<h3> What is your theme ?</h3>
 	<form:form method="POST" action="astro" modelAttribute="astro">
 		<table>
 			<tr>

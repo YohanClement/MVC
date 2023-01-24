@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -42,26 +41,27 @@ public class AppCongif implements WebMvcConfigurer {
 	@Bean(name = "messageSource") // charge les messages dans des fichiers properties
 	public MessageSource getMessageResource() {
 		ReloadableResourceBundleMessageSource messageResource = new ReloadableResourceBundleMessageSource();
-		messageResource.setBasename("classpath:message");
+		messageResource.setBasename("/i18n/message");
 		messageResource.setDefaultEncoding("UTF-8");
 		return messageResource;
 	}
 
-//	@Bean
-//	public LocaleResolver localeResolver() {
-//		return localeResolver();
-//	}
-//
-//	@Bean
-//	public LocaleChangeInterceptor localeChangeInterceptor() {
-//		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-//		localeChangeInterceptor.setParamName("lang");
-//		return localeChangeInterceptor;
-//	}
-//
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(localeChangeInterceptor());
-//	}
+	@Bean
+	public LocaleResolver localeResolver() {
+		CookieLocaleResolver resolver = new CookieLocaleResolver();
+		resolver.setDefaultLocale(new Locale("fr"));
+		resolver.setCookieName("myLocaleCookie");
+		resolver.setCookieMaxAge(4800);
+		return resolver;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+		interceptor.setParamName("mylocale");
+		registry.addInterceptor(interceptor);
+	}
+
+
 
 }

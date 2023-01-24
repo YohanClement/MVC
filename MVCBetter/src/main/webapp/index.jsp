@@ -5,8 +5,8 @@
 
 </head>
 <body>
+<h1>Welcome</h1>
 
-	<h1><fmt:message key="label.welcome" /></h1>
 	<form action="hello">
 		<input type="text" name="nom"> <input type="submit"
 			value="J'entre">

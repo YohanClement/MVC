@@ -1,5 +1,7 @@
 package fr.formation.inti.controller;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -46,7 +48,7 @@ public class AstroController {
 	}
 
 	@GetMapping(value = "/astro")
-	public ModelAndView showForm() {
+	public ModelAndView showForm(Locale locale) {
 		return new ModelAndView("zodiac", "astro", new Astro()); // 1 = .jsp et 2 = objet instancié
 	}
 

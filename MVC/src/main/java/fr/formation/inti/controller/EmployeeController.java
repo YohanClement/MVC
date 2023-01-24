@@ -21,10 +21,10 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/addemployee")
-	public String setemployee(@ModelAttribute("emp") Employee emp, Model model) {
-//		if (br.hasErrors())
-//			return "index";
-//		else
+	public String setemployee(@Valid @ModelAttribute("emp") Employee emp, Model model, BindingResult br) {
+		if (br.hasErrors())
+			return "index";
+		else
 			return "show";
 	}
 

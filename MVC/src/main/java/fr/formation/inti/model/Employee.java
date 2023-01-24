@@ -10,15 +10,15 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Employee {
-//	@NotEmpty
-//	@Size(min=3, max=20 ,message="required")
+	@NotEmpty
+	@Size(min=3, max=20 ,message="required")
 	private String firstname;
-//	@NotEmpty
-//	@Size(min=3, max=20 ,message="required")
+	@NotEmpty
+	@Size(min=3, max=20 ,message="required")
 	private String lastname;
-//	@Size(min=3, max=20)
+	@Size(min=3, max=20)
 	private String rolename;
-//	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date date;
 	public String getFirstname() {
 		return firstname;

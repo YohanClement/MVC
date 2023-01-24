@@ -8,6 +8,7 @@
 		<label>nom :</label><input name="nom" type="text"> <input
 			type="submit" value="send">
 	</form>
+	<br>
 	<form action="addemployee" method="get">
 		<input type="submit" value="Add Employee">
 	</form>

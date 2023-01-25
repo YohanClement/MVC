@@ -14,8 +14,12 @@ public class Dispatcher implements WebApplicationInitializer {
 
 	public void onStartup(ServletContext container) throws ServletException {
 		AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
-		root.scan("fr.formation");
+		root.scan("fr.formation.inti");
+		root.register(AppCongif.class);
+
+		
 		container.addListener(new ContextLoaderListener(root));
+		
 
 		ServletRegistration.Dynamic registration = container.addServlet("mvc",
 				new DispatcherServlet(new GenericWebApplicationContext()));

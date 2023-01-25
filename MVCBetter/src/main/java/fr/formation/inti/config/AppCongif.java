@@ -1,6 +1,5 @@
 package fr.formation.inti.config;
 
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -17,23 +16,23 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-@EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "fr.formation.inti.*" })
-@PropertySource("classpath:hibernate.cfg.properties")
+@EnableTransactionManagement(proxyTargetClass = true)
+@PropertySource("classpath:ds.properties")
 public class AppCongif implements WebMvcConfigurer {
+
+//	public void addViewControllers(ViewControllerRegistry registry) {
+//		registry.addViewController("/").setViewName("index");
+//	}
+
+
 	@Autowired
 	private Environment env;
 
@@ -60,7 +59,7 @@ public class AppCongif implements WebMvcConfigurer {
 		properties.put("current_session_context_class", env.getProperty("current_session_context_class"));
 
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-		factoryBean.setPackagesToScan(new String[] { "fr.formation.inti.model" });
+		factoryBean.setPackagesToScan(new String[] {"fr.formation.inti.model" });
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setHibernateProperties(properties);
 		factoryBean.afterPropertiesSet();
@@ -76,12 +75,8 @@ public class AppCongif implements WebMvcConfigurer {
 
 		return transactionManager;
 	}
+
 	//////////////////////////////////////////////////////////////////////////////////////////////
-
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
-	}
-
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver bean = new InternalResourceViewResolver();
@@ -100,28 +95,4 @@ public class AppCongif implements WebMvcConfigurer {
 		messageResource.setDefaultEncoding("UTF-8");
 		return messageResource;
 	}
-
-	@Bean
-	public LocaleResolver localeResolver() {
-		CookieLocaleResolver resolver = new CookieLocaleResolver();
-		resolver.setDefaultLocale(new Locale("fr"));
-		resolver.setCookieName("LocaleCookie");
-		resolver.setCookieMaxAge(4800);
-		return resolver;
-	}
-
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-		interceptor.setParamName("lang");
-		registry.addInterceptor(interceptor);
-	}
-	
-	/////////////////////////////////////////////////////////////////////////
-
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
-
 }

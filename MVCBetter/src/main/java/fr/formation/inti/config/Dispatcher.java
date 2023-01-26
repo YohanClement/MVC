@@ -7,7 +7,6 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class Dispatcher implements WebApplicationInitializer {
@@ -21,8 +20,8 @@ public class Dispatcher implements WebApplicationInitializer {
 		container.addListener(new ContextLoaderListener(root));
 		
 
-		ServletRegistration.Dynamic registration = container.addServlet("mvc",
-				new DispatcherServlet(new GenericWebApplicationContext()));
+		ServletRegistration.Dynamic registration = container.addServlet("JambonCru",
+				new DispatcherServlet(root));
 		registration.setLoadOnStartup(1);
 		registration.addMapping("/");
 	}

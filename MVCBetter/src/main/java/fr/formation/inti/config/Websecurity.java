@@ -1,19 +1,29 @@
 package fr.formation.inti.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import fr.formation.inti.authentification.MyDBAuthenticationService;
 
 @Configuration
 @EnableWebSecurity
 public class Websecurity extends WebSecurityConfigurerAdapter {
+	
+	
 	@Autowired
 	MyDBAuthenticationService myDBAauthenticationService;
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+
+		return new BCryptPasswordEncoder();
+	}
 
 
 	public void configure(HttpSecurity http) throws Exception {
@@ -49,9 +59,14 @@ public class Websecurity extends WebSecurityConfigurerAdapter {
 	}
 
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(myDBAauthenticationService);// For User in database.
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(myDBAauthenticationService).passwordEncoder(passwordEncoder());// For User in database.
 	}
+//	
+//	public static void main(String[] args) {
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//		System.out.println(encoder.encode("manager"));
+//	}
 
 }

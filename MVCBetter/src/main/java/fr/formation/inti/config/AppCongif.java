@@ -63,7 +63,7 @@ public class AppCongif implements WebMvcConfigurer {
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setHibernateProperties(properties);
 		factoryBean.afterPropertiesSet();
-		//
+		
 		SessionFactory sf = factoryBean.getObject();
 		return sf;
 	}

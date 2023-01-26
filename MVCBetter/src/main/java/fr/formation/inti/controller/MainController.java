@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
+//	@Autowired
+//	private EmployeeDaoImpl dao;
 
 	@GetMapping(value = { "/", "/welcome" })
 	public String welcomePage(Model model) {
@@ -38,10 +40,11 @@ public class MainController {
 
 		// After user login successfully.
 		String userName = principal.getName();
+//		List<Employee> emps = dao.findAll();
 
-		System.out.println("User Email: " + userName);
-		model.addAttribute("message", "Hi " + principal.getName() + "<br> You succeded! " + principal.toString());
-
+//		System.out.println("User Email: " + userName);
+		model.addAttribute("message", "Hi " + userName + "<br> You succeded! " + principal.toString());
+//		model.addAttribute("emp", emps);
 		return "userInfoPage";
 	}
 
@@ -56,5 +59,4 @@ public class MainController {
 		}
 		return "403Page";
 	}
-
 }

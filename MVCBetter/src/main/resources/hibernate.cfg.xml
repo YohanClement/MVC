@@ -14,7 +14,8 @@
 		<property name="hibernate.search.autoregister_listeners">true</property>
 		<property name="hibernate.validator.apply_to_ddl">false</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<mapping class="fr.formation.inti.model.User" />
+		<mapping class="fr.formation.inti.model.User2" />
 		<mapping class="fr.formation.inti.model.Employee" />
+		<mapping class="fr.formation.inti.model.Roles" />
 	</session-factory>
 </hibernate-configuration>

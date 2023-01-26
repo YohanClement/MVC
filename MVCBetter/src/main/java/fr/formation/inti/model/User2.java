@@ -3,11 +3,15 @@ package fr.formation.inti.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +26,8 @@ public class User2 {
 	private String rolename;
 	private Date creationDate;
 	private String droit;
+	
+	private Set<Roles> roles = new HashSet<Roles>();
 	
 	public User2() {
 	}
@@ -104,6 +110,19 @@ public class User2 {
 		return "User [Iduser=" + iduser + ", Email=" + email + ", Password=" + password + ", Firstname=" + firstname
 				+ ", Lastname=" + lastname + ", Rolename=" + rolename + ", CreationDate=" + creationDate + "]";
 	}
+
+	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
+	}
+
+	
+	
+	
 	
 	
 }
